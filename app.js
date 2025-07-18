@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
 const cors = require('cors');
+const IndexRoute = require('./routes');
 
 class App{
     constructor(){
@@ -23,6 +24,7 @@ class App{
                 "message": "Hi Started Successfully"
             })
         })
+        await new IndexRoute(this.app).intializeRoutes();
 
         // Handling Undefined route
         this.app.use(async (req, res, next) => {
@@ -40,12 +42,12 @@ class App{
     }
 
     async listen() {
-        this.app.listen(4200, (err) => {
+        this.app.listen(process.env.PORT, (err) => {
             if (err) {
                 console.log("Error while running the express application", err);
             }
             else {
-                console.log("Express application running on port 4200");
+                console.log(`Express application running on port ${process.env.PORT}`);
             }
         })
     }

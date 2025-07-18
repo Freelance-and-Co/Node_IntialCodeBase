@@ -2,16 +2,15 @@ require('dotenv').config();
 
 global.DATA = {
     CONNECTION: {
-        mysql: undefined
+        postgres: undefined
     }
 }
 
-const MySQLConnection = require('./connections/mysql_connection')
+const MyConnection = require('./connections/postgres_connection')
 
 const InitializeConnection = async () => {
     try {
-        const connectionObjMySQL = new MySQLConnection();
-        await connectionObjMySQL.initialize();
+        await MyConnection.createConnection();
 
     } catch (err) {
         console.error('Error connecting to the database:', err);
